@@ -338,6 +338,7 @@
             }).done(function (responseData) {
                 // Set the 'directions-line' source's data to what's returned by the API query
                 console.log("response" + responseData.routes[0].geometry)
+                console.log(JSON.stringify(responseData.routes[0].geometry))
                 // map.getSource('directions-line').setData('')
                 map.getSource('directions-line').setData(responseData.routes[0].geometry);
                 // console.log(JSON.stringify(data, undefined, 2))
