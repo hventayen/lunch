@@ -189,8 +189,25 @@
         function removeData(e) {
             console.log("deleting")
         }
-
-
+        /*
+        // basic geolocation, gives you a button to press
+        map.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                trackUserLocation: true
+            })
+        );
+            */
+        // Initiates geolocation API
+        const geolocate = new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        })
+        map.addControl(geolocate);
         map.on('load', function() {
         // When the map loads, add the source and layer
         map.addSource('directions-line', {
@@ -281,7 +298,8 @@
             }
         }, "directions-line-core");
 
-
+        //Geolocation triggers when map first loads
+        geolocate.trigger();
 
 
 
@@ -382,7 +400,19 @@ var params = document.getElementById('params');
             getDirections(stringCoordinates)
         }
     });
+    geolocate.on('geolocate', function()
+{
 
+//Get the updated user location, this returns a javascript object.
+var userlocation = geolocate._lastKnownPosition;
+
+//Your work here - Get coordinates like so
+var lat = userlocation.coords.latitude;
+var lng = userlocation.coords.longitude;
+//GEOLOCATION OUTPUT
+console.log(JSON.stringify(userlocation.coords.latitude))
+console.log(JSON.stringify(userlocation.coords.longitude))
+});
     </script>
 </body>
 </html>
